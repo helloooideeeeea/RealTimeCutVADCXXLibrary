@@ -1,0 +1,2 @@
+RealTimeCutVADCXXLibrary/Frameworks/onnxruntime.xcframework/** filter=lfs diff=lfs merge=lfs -text
+RealTimeCutVADCXXLibrary/Frameworks/webrtc_audio_processing.xcframework/** filter=lfs diff=lfs merge=lfs -text
