@@ -37,18 +37,8 @@ userdata/
 *.crash
 *.log
 
-**/Build/
-**/Intermediates/
-**/Intermediates.noindex/
-**/Index/
-**/Index.noindex/
-**/*.hmap
-**/*.modulemap
-**/*.swiftsourceinfo
-**/*.swiftmodule
-**/*.swiftinterface
 
 .env
 .secrets
 
-
+build
