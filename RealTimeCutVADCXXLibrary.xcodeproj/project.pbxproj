@@ -19,10 +19,11 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		804CA5C32D54FA3700D86AC6 /* Exceptions for "RealTimeCutVADCXXLibrary" folder in "RealTimeCutVADCXXLibrary" target */ = {
+		806DAB3D2D56008800589FD9 /* Exceptions for "RealTimeCutVADCXXLibrary" folder in "RealTimeCutVADCXXLibrary" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			publicHeaders = (
-				include/c_wrapper.h,
+				c_wrapper.h,
+				RealTimeCutVADCXXLibrary.h,
 			);
 			target = 804CA58A2D54EE8B00D86AC6 /* RealTimeCutVADCXXLibrary */;
 		};
@@ -32,7 +33,7 @@
 		804CA58D2D54EE8B00D86AC6 /* RealTimeCutVADCXXLibrary */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				804CA5C32D54FA3700D86AC6 /* Exceptions for "RealTimeCutVADCXXLibrary" folder in "RealTimeCutVADCXXLibrary" target */,
+				806DAB3D2D56008800589FD9 /* Exceptions for "RealTimeCutVADCXXLibrary" folder in "RealTimeCutVADCXXLibrary" target */,
 			);
 			path = RealTimeCutVADCXXLibrary;
 			sourceTree = "<group>";
