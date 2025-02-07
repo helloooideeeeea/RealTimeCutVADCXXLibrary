@@ -15,6 +15,7 @@
 		804CA58B2D54EE8B00D86AC6 /* RealTimeCutVADCXXLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RealTimeCutVADCXXLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		804CA5BB2D54F4E100D86AC6 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		804CA5BD2D54F4EA00D86AC6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		806DAAF42D55D60D00589FD9 /* build_xcframework.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = build_xcframework.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -54,6 +55,7 @@
 		804CA5812D54EE8B00D86AC6 = {
 			isa = PBXGroup;
 			children = (
+				806DAAF42D55D60D00589FD9 /* build_xcframework.sh */,
 				804CA58D2D54EE8B00D86AC6 /* RealTimeCutVADCXXLibrary */,
 				804CA5BA2D54F4E100D86AC6 /* Frameworks */,
 				804CA58C2D54EE8B00D86AC6 /* Products */,
