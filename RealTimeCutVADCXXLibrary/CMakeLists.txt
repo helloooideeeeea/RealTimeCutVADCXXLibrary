@@ -90,10 +90,9 @@ if(ANDROID)
     message(STATUS "Building for Android")
 
     set(ONNX_RUNTIME_LIBRARY "${PROJECT_SOURCE_DIR}/jniLibs/${ANDROID_ABI}/libonnxruntime.so")
-    set(ONNX_RUNTIME_INCLUDE "${PROJECT_SOURCE_DIR}/Frameworks/onnxruntime.xcframework/macos-arm64_x86_64/onnxruntime.framework/Headers")
     set(WEBRTC_AUDIO_PROCESSING_LIBRARY "${PROJECT_SOURCE_DIR}/jniLibs/${ANDROID_ABI}/libwebrtc-audio-processing-1.so")
-    set(WEBRTC_AUDIO_PROCESSING_INCLUDE "${PROJECT_SOURCE_DIR}/Frameworks/webrtc_audio_processing.xcframework/macos-arm64_x86_64/webrtc_audio_processing.framework/Headers/webrtc-audio-processing-1")
-    set(WEBRTC_ABSL_INCLUDE "${PROJECT_SOURCE_DIR}/Frameworks/webrtc_audio_processing.xcframework/macos-arm64_x86_64/webrtc_audio_processing.framework/Headers")
+    set(LIBRARY_INCLUDE "${PROJECT_SOURCE_DIR}/jniLibs/Headers")
+    set(EXCEPTION_INCLUDE "${PROJECT_SOURCE_DIR}/jniLibs/Headers/webrtc_audio_processing/webrtc-audio-processing-1")
 
     # Create a shared library for Android
     add_library(RealtimeCutVadLibrary SHARED ${SOURCE_FILES})
@@ -101,9 +100,8 @@ if(ANDROID)
     # Include directories
     target_include_directories(RealtimeCutVadLibrary PRIVATE
             ${PROJECT_SOURCE_DIR}
-            ${ONNX_RUNTIME_INCLUDE}
-            ${WEBRTC_AUDIO_PROCESSING_INCLUDE}
-            ${WEBRTC_ABSL_INCLUDE}
+            ${LIBRARY_INCLUDE}
+            ${EXCEPTION_INCLUDE}
     )
 
     target_link_libraries(RealtimeCutVadLibrary

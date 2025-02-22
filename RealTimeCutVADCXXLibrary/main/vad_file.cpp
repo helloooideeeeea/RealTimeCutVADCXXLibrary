@@ -31,7 +31,7 @@ void voiceStartCallback(void* context)
 void voiceEndCallback(void* context, const uint8_t* wav_data, size_t wav_size)
 {
     std::cout << "録音終了" << std::endl;
-    auto filename = std::string(PROJECT_ROOT_DIR)+"/test_data/"+"raw_"+time_str()+".wav";
+    auto filename = std::string(PROJECT_ROOT_DIR)+"raw_"+time_str()+".wav";
     std::ofstream outfile(filename, std::ios::binary);
     outfile.write((const char*)&wav_data[0], wav_size);
     outfile.close();

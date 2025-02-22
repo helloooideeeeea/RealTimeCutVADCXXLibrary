@@ -42,5 +42,8 @@ userdata/
 .secrets
 
 build
+build_android
 RealTimeCutVADCXXLibrary/Frameworks/*.xcframework
 cmake-build-debug
+
+jniLibs

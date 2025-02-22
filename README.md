@@ -11,11 +11,11 @@
 - **Advanced audio preprocessing** using WebRTC's APM (noise suppression, gain control, high-pass filtering)
 - **Accurate voice segmentation algorithms** implemented entirely in C++
 - **Real-time WAV generation with callback support** for seamless integration
-- **Cross-platform compatibility** through XCFramework
+- **Cross-platform compatibility** through XCFramework and Android support
 
 ---
 
-## Building the XCFramework
+## Building for iOS/macOS (XCFramework)
 
 **RealTimeCutVADCXXLibrary** is the core C++ implementation, designed to be compiled into an XCFramework. This project is not intended for direct integration via Swift Package Manager (SPM) or CocoaPods.
 
@@ -43,9 +43,9 @@ cd RealTimeCutVADCXXLibrary
 The `build_xcframework.sh` script will:
 - Clean any existing build artifacts.
 - Build the library for:
-  - iOS devices (`iphoneos`)
-  - iOS simulators (`iphonesimulator`)
-  - macOS (`macosx`)
+    - iOS devices (`iphoneos`)
+    - iOS simulators (`iphonesimulator`)
+    - macOS (`macosx`)
 - Create the XCFramework combining all platforms.
 
 ### Output
@@ -57,6 +57,54 @@ Upon successful execution, the XCFramework will be generated at:
 ```
 
 You can then integrate this XCFramework into your iOS or macOS projects.
+
+---
+
+## Building for Android
+
+### How to Build
+
+**RealTimeCutVADCXXLibrary** now supports building for Android! You can compile the shared library (`.so`) for different Android architectures using the provided script.
+
+### Steps to Build:
+
+1. Ensure that the `ANDROID_NDK` environment variable is correctly set. You can set it externally before running the script:
+
+```bash
+export ANDROID_NDK=$ANDROID_HOME/ndk/25.1.8937393
+```
+
+2. Run the Android build script:
+
+```bash
+./build_android_so.sh
+```
+
+### Script Details
+
+The `build_android_so.sh` script will:
+- Clean any existing build artifacts.
+- Build the library for:
+    - `arm64-v8a`
+    - `armeabi-v7a`
+    - `x86_64`
+- Copy the generated `.so` files to `jniLibs/` for Android integration.
+
+### Output
+
+Upon successful execution, the shared libraries will be generated at:
+
+```bash
+jniLibs/
+├── arm64-v8a/
+│   ├── libRealtimeCutVadLibrary.so
+├── armeabi-v7a/
+│   ├── libRealtimeCutVadLibrary.so
+├── x86_64/
+│   ├── libRealtimeCutVadLibrary.so
+```
+
+You can now use these libraries in your Android project under `src/main/jniLibs/`.
 
 ---
 
@@ -164,14 +212,14 @@ WebRTC's APM is used for:
 
 1. **Input Audio Configuration**: Supports sample rates of 8 kHz, 16 kHz, 24 kHz, and 48 kHz.
 2. **Audio Preprocessing**:
-   - Audio is split into chunks and processed with APM.
-   - Audio is converted to 16 kHz for compatibility with Silero VAD.
+    - Audio is split into chunks and processed with APM.
+    - Audio is converted to 16 kHz for compatibility with Silero VAD.
 3. **Voice Activity Detection**:
-   - Processed audio is passed to Silero VAD via ONNX Runtime.
-   - VAD outputs a probability score indicating voice activity.
+    - Processed audio is passed to Silero VAD via ONNX Runtime.
+    - VAD outputs a probability score indicating voice activity.
 4. **Voice Segmentation Algorithm**:
-   - **Voice Start**: Triggered when the probability exceeds the start threshold for a set number of frames.
-   - **Voice End**: Triggered when silence is detected over a set number of frames.
+    - **Voice Start**: Triggered when the probability exceeds the start threshold for a set number of frames.
+    - **Voice End**: Triggered when silence is detected over a set number of frames.
 5. **Output**: The final WAV data is generated, including proper header information for immediate playback or saving.
 
 ### WebRTC APM Configuration
