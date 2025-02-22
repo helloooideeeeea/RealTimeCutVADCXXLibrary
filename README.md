@@ -32,7 +32,16 @@ git clone https://github.com/helloooideeeeea/RealTimeCutVADCXXLibrary.git
 cd RealTimeCutVADCXXLibrary
 ```
 
-2. Run the build script:
+2. Download and extract the required XCFrameworks into the `RealTimeCutVADCXXLibrary/Frameworks/` directory:
+
+```bash
+wget https://github.com/helloooideeeeea/RealTimeCutVADLibraryForXCFramework/releases/download/v1.0.0/onnxruntime.xcframework.zip
+wget https://github.com/helloooideeeeea/RealTimeCutVADLibraryForXCFramework/releases/download/v1.0.0/webrtc_audio_processing.xcframework.zip
+unzip onnxruntime.xcframework.zip -d RealTimeCutVADCXXLibrary/Frameworks/
+unzip webrtc_audio_processing.xcframework.zip -d RealTimeCutVADCXXLibrary/Frameworks/
+```
+
+3. Run the build script:
 
 ```bash
 ./build_xcframework.sh
@@ -74,7 +83,14 @@ You can then integrate this XCFramework into your iOS or macOS projects.
 export ANDROID_NDK=$ANDROID_HOME/ndk/25.1.8937393
 ```
 
-2. Run the Android build script:
+2. Download and extract the prebuilt Android libraries (`jniLibs.zip`) into the `RealTimeCutVADCXXLibrary/` directory:
+
+```bash
+wget https://github.com/helloooideeeeea/RealTimeCutVADLibraryForXCFramework/releases/download/v1.0.1/jniLibs.zip
+unzip jniLibs.zip -d RealTimeCutVADCXXLibrary/
+```
+
+3. Run the Android build script:
 
 ```bash
 ./build_android_so.sh
