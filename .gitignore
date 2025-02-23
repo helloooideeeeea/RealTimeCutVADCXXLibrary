@@ -43,7 +43,6 @@ userdata/
 
 build
 build_android
-RealTimeCutVADCXXLibrary/Frameworks/*.xcframework
+Frameworks/*.xcframework
 cmake-build-debug
-
 jniLibs

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		804CA5BC2D54F4E100D86AC6 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 804CA5BB2D54F4E100D86AC6 /* CoreFoundation.framework */; };
 		804CA5BE2D54F4EA00D86AC6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 804CA5BD2D54F4EA00D86AC6 /* Foundation.framework */; };
+		80A33E3B2D6B2A2200E03541 /* webrtc_audio_processing.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A33E3A2D6B2A2200E03541 /* webrtc_audio_processing.xcframework */; };
+		80A33E3D2D6B2A3500E03541 /* onnxruntime.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A33E3C2D6B2A3500E03541 /* onnxruntime.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -16,14 +18,13 @@
 		804CA5BB2D54F4E100D86AC6 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		804CA5BD2D54F4EA00D86AC6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		806DAAF42D55D60D00589FD9 /* build_xcframework.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = build_xcframework.sh; sourceTree = "<group>"; };
+		80A33E3A2D6B2A2200E03541 /* webrtc_audio_processing.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = webrtc_audio_processing.xcframework; path = Frameworks/webrtc_audio_processing.xcframework; sourceTree = "<group>"; };
+		80A33E3C2D6B2A3500E03541 /* onnxruntime.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = onnxruntime.xcframework; path = Frameworks/onnxruntime.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
 		806DAB3D2D56008800589FD9 /* Exceptions for "RealTimeCutVADCXXLibrary" folder in "RealTimeCutVADCXXLibrary" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Frameworks/README.txt,
-			);
 			publicHeaders = (
 				c_wrapper.h,
 				RealTimeCutVADCXXLibrary.h,
@@ -48,6 +49,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80A33E3D2D6B2A3500E03541 /* onnxruntime.xcframework in Frameworks */,
+				80A33E3B2D6B2A2200E03541 /* webrtc_audio_processing.xcframework in Frameworks */,
 				804CA5BC2D54F4E100D86AC6 /* CoreFoundation.framework in Frameworks */,
 				804CA5BE2D54F4EA00D86AC6 /* Foundation.framework in Frameworks */,
 			);
@@ -77,6 +80,8 @@
 		804CA5BA2D54F4E100D86AC6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				80A33E3C2D6B2A3500E03541 /* onnxruntime.xcframework */,
+				80A33E3A2D6B2A2200E03541 /* webrtc_audio_processing.xcframework */,
 				804CA5BD2D54F4EA00D86AC6 /* Foundation.framework */,
 				804CA5BB2D54F4E100D86AC6 /* CoreFoundation.framework */,
 			);
@@ -286,18 +291,10 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				EXCLUDED_SOURCE_FILE_NAMES = (
-					"$(PROJECT_DIR)/RealTimeCutVADCXXLibrary/jniLibs/*.*",
-					"$(PROJECT_DIR)/RealTimeCutVADCXXLibrary/build_android/*.*",
-					"$(PROJECT_DIR)/RealTimeCutVADCXXLibrary/build/*.*",
-					"$(PROJECT_DIR)/RealTimeCutVADCXXLibrary/models/*.*",
-					"$(PROJECT_DIR)/RealTimeCutVADCXXLibrary/.idea/*.*",
-					"$(PROJECT_DIR)/RealTimeCutVADCXXLibrary/CMakeLists.txt",
-					"$(PROJECT_DIR)/RealTimeCutVADCXXLibrary/main/*.*",
-				);
+				EXCLUDED_SOURCE_FILE_NAMES = "";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/RealTimeCutVADCXXLibrary/Frameworks/onnxruntime.xcframework",
-					"$(PROJECT_DIR)/RealTimeCutVADCXXLibrary/Frameworks/webrtc_audio_processing.xcframework",
+					"$(PROJECT_DIR)/Frameworks/onnxruntime.xcframework",
+					"$(PROJECT_DIR)/Frameworks/webrtc_audio_processing.xcframework",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -314,8 +311,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/RealTimeCutVADCXXLibrary/Frameworks/webrtc_audio_processing.xcframework/ios-arm64/webrtc_audio_processing.framework/Headers",
-					"$(PROJECT_DIR)/RealTimeCutVADCXXLibrary/Frameworks/webrtc_audio_processing.xcframework/ios-arm64/webrtc_audio_processing.framework/Headers/webrtc-audio-processing-1",
+					"$(PROJECT_DIR)/Frameworks/webrtc_audio_processing.xcframework/ios-arm64/webrtc_audio_processing.framework/Headers",
+					"$(PROJECT_DIR)/Frameworks/webrtc_audio_processing.xcframework/ios-arm64/webrtc_audio_processing.framework/Headers/webrtc-audio-processing-1",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
@@ -371,18 +368,10 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				EXCLUDED_SOURCE_FILE_NAMES = (
-					"$(PROJECT_DIR)/RealTimeCutVADCXXLibrary/jniLibs/*.*",
-					"$(PROJECT_DIR)/RealTimeCutVADCXXLibrary/build_android/*.*",
-					"$(PROJECT_DIR)/RealTimeCutVADCXXLibrary/build/*.*",
-					"$(PROJECT_DIR)/RealTimeCutVADCXXLibrary/models/*.*",
-					"$(PROJECT_DIR)/RealTimeCutVADCXXLibrary/.idea/*.*",
-					"$(PROJECT_DIR)/RealTimeCutVADCXXLibrary/CMakeLists.txt",
-					"$(PROJECT_DIR)/RealTimeCutVADCXXLibrary/main/*.*",
-				);
+				EXCLUDED_SOURCE_FILE_NAMES = "";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/RealTimeCutVADCXXLibrary/Frameworks/onnxruntime.xcframework",
-					"$(PROJECT_DIR)/RealTimeCutVADCXXLibrary/Frameworks/webrtc_audio_processing.xcframework",
+					"$(PROJECT_DIR)/Frameworks/onnxruntime.xcframework",
+					"$(PROJECT_DIR)/Frameworks/webrtc_audio_processing.xcframework",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -393,8 +382,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/RealTimeCutVADCXXLibrary/Frameworks/webrtc_audio_processing.xcframework/ios-arm64/webrtc_audio_processing.framework/Headers",
-					"$(PROJECT_DIR)/RealTimeCutVADCXXLibrary/Frameworks/webrtc_audio_processing.xcframework/ios-arm64/webrtc_audio_processing.framework/Headers/webrtc-audio-processing-1",
+					"$(PROJECT_DIR)/Frameworks/webrtc_audio_processing.xcframework/ios-arm64/webrtc_audio_processing.framework/Headers",
+					"$(PROJECT_DIR)/Frameworks/webrtc_audio_processing.xcframework/ios-arm64/webrtc_audio_processing.framework/Headers/webrtc-audio-processing-1",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;

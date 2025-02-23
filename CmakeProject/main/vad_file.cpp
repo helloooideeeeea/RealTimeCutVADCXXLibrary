@@ -4,6 +4,7 @@
 #include <thread>
 #include <fstream>
 #include <thread>
+#include <filesystem>
 #include "realtime_cut_vad.h"
 
 std::string time_str() {
@@ -31,7 +32,7 @@ void voiceStartCallback(void* context)
 void voiceEndCallback(void* context, const uint8_t* wav_data, size_t wav_size)
 {
     std::cout << "録音終了" << std::endl;
-    auto filename = std::string(PROJECT_ROOT_DIR)+"raw_"+time_str()+".wav";
+    std::filesystem::path filename = std::filesystem::path(PROJECT_SOURCE_DIR) / ("raw_" + time_str() + ".wav");
     std::ofstream outfile(filename, std::ios::binary);
     outfile.write((const char*)&wav_data[0], wav_size);
     outfile.close();
@@ -39,6 +40,7 @@ void voiceEndCallback(void* context, const uint8_t* wav_data, size_t wav_size)
 }
 
 int main(int argc, char *argv[]) {
+    std::cout << "Current directory: " << std::filesystem::current_path() << std::endl;
     if (argc < 3) {
         std::cerr << "Usage: " << argv[0] << " <onnx model file>" << " <Sample Rate>" << " <wav file>" << std::endl;
         return 1;

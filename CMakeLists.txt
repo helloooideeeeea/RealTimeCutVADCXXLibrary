@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.29)
+cmake_minimum_required(VERSION 3.5)
 project(RealTimeCutVADCXXLibrary)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -7,10 +7,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 message(STATUS "C++ Compiler: ${CMAKE_CXX_COMPILER}")
 message(STATUS "C Compiler: ${CMAKE_C_COMPILER}")
 
-set(PROJECT_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
-add_compile_definitions(PROJECT_ROOT_DIR="${PROJECT_ROOT_DIR}")
+set(MY_CMAKE_PROJECT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/CmakeProject")
+set(MY_LIBRARY_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/RealTimeCutVADCXXLibrary")
 
-message("PROJECT_ROOT_DIR: ${PROJECT_ROOT_DIR}")
+add_compile_definitions(PROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}")
+add_compile_definitions(MY_CMAKE_PROJECT_DIR="${MY_CMAKE_PROJECT_DIR}")
+add_compile_definitions(MY_LIBRARY_SOURCE_DIR="${MY_LIBRARY_SOURCE_DIR}")
+
+message(STATUS "PROJECT_SOURCE_DIR: ${PROJECT_SOURCE_DIR}")
+message(STATUS "MY_CMAKE_PROJECT_DIR: ${MY_CMAKE_PROJECT_DIR}")
+message(STATUS "MY_LIBRARY_SOURCE_DIR: ${MY_LIBRARY_SOURCE_DIR}")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-narrowing")
 
@@ -19,8 +25,11 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR} CACHE PATH "default install path" FORCE)
 endif()
 
-file(GLOB SRC "${PROJECT_SOURCE_DIR}/*.cpp")
-file(GLOB INCLUDE "${PROJECT_SOURCE_DIR}/*.h")
+file(GLOB_RECURSE SRC "${MY_LIBRARY_SOURCE_DIR}/*.cpp")
+file(GLOB_RECURSE INCLUDE "${MY_LIBRARY_SOURCE_DIR}/*.h")
+
+message(STATUS "SRC files: ${SRC}")
+message(STATUS "INCLUDE files: ${INCLUDE}")
 
 set(SOURCE_FILES ${SRC})
 set(HEADER ${INCLUDE})
@@ -60,10 +69,10 @@ if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
     set(MACOSX_BUNDLE_COPYRIGHT "Copyright (c) 2023")
     set(MACOSX_BUNDLE_ICON_FILE "MyApp.icns")
 
-    add_executable(VAD_FILE_COMMAND ${PROJECT_SOURCE_DIR}/main/vad_file.cpp ${HEADER} ${SOURCE_FILES})
+    add_executable(VAD_FILE_COMMAND ${MY_CMAKE_PROJECT_DIR}/main/vad_file.cpp ${HEADER} ${SOURCE_FILES})
     set_target_properties(VAD_FILE_COMMAND PROPERTIES MACOSX_BUNDLE TRUE)
     target_include_directories(VAD_FILE_COMMAND PRIVATE
-            ${PROJECT_SOURCE_DIR}
+            ${MY_LIBRARY_SOURCE_DIR}
             ${ONNX_RUNTIME_INCLUDE}
             ${WEBRTC_AUDIO_PROCESSING_INCLUDE}
             ${WEBRTC_ABSL_INCLUDE}
@@ -99,7 +108,7 @@ if(ANDROID)
 
     # Include directories
     target_include_directories(RealtimeCutVadLibrary PRIVATE
-            ${PROJECT_SOURCE_DIR}
+            ${MY_LIBRARY_SOURCE_DIR}
             ${LIBRARY_INCLUDE}
             ${EXCEPTION_INCLUDE}
     )

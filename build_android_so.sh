@@ -4,8 +4,6 @@ set -e  # エラーが発生したら停止
 
 NOW_DIR=`pwd`
 
-cd RealTimeCutVADCXXLibrary
-
 # ビルド関数
 build_android() {
     ABI=$1
@@ -23,8 +21,7 @@ build_android() {
           -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake \
           -DANDROID_PLATFORM=android-24 \
           -DCMAKE_BUILD_TYPE=Release \
-          ..
-
+          ../
     make
 
     mkdir -p $OUTPUT_PATH
