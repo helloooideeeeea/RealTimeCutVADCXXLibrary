@@ -37,8 +37,8 @@ cd RealTimeCutVADCXXLibrary
 ```bash
 wget https://github.com/helloooideeeeea/RealTimeCutVADLibraryForXCFramework/releases/download/v1.0.0/onnxruntime.xcframework.zip
 wget https://github.com/helloooideeeeea/RealTimeCutVADLibraryForXCFramework/releases/download/v1.0.0/webrtc_audio_processing.xcframework.zip
-unzip onnxruntime.xcframework.zip -d RealTimeCutVADCXXLibrary/Frameworks/
-unzip webrtc_audio_processing.xcframework.zip -d RealTimeCutVADCXXLibrary/Frameworks/
+unzip onnxruntime.xcframework.zip -d Frameworks/
+unzip webrtc_audio_processing.xcframework.zip -d Frameworks/
 ```
 
 3. Run the build script:
@@ -87,7 +87,7 @@ export ANDROID_NDK=$ANDROID_HOME/ndk/25.1.8937393
 
 ```bash
 wget https://github.com/helloooideeeeea/RealTimeCutVADLibraryForXCFramework/releases/download/v1.0.1/jniLibs.zip
-unzip jniLibs.zip -d RealTimeCutVADCXXLibrary/
+unzip jniLibs.zip -d ./
 ```
 
 3. Run the Android build script:
