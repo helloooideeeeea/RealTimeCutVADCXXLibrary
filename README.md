@@ -32,7 +32,7 @@ git clone https://github.com/helloooideeeeea/RealTimeCutVADCXXLibrary.git
 cd RealTimeCutVADCXXLibrary
 ```
 
-2. Download and extract the required XCFrameworks into the `RealTimeCutVADCXXLibrary/Frameworks/` directory:
+2. Download and extract the required XCFrameworks into the `Frameworks/` directory:
 
 ```bash
 wget https://github.com/helloooideeeeea/RealTimeCutVADLibraryForXCFramework/releases/download/v1.0.0/onnxruntime.xcframework.zip
@@ -83,7 +83,7 @@ You can then integrate this XCFramework into your iOS or macOS projects.
 export ANDROID_NDK=$ANDROID_HOME/ndk/25.1.8937393
 ```
 
-2. Download and extract the prebuilt Android libraries (`jniLibs.zip`) into the `RealTimeCutVADCXXLibrary/` directory:
+2. Download and extract the prebuilt Android libraries (`jniLibs.zip`) into the `Project Root` directory:
 
 ```bash
 wget https://github.com/helloooideeeeea/RealTimeCutVADLibraryForXCFramework/releases/download/v1.0.1/jniLibs.zip
