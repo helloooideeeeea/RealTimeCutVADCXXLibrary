@@ -45,4 +45,5 @@ build
 build_android
 Frameworks/*.xcframework
 cmake-build-debug
+!jniLibs/README.txt
 jniLibs
