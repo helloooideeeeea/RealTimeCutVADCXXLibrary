@@ -57,10 +57,12 @@ private:
     int64_t sr;
     unsigned int size_state;
     std::vector<float> _state;
-
-    int64_t input_node_dims[2];
+    
     const int64_t state_node_dims[3];
     const int64_t sr_node_dims[1];
+
+    int context_size;
+    std::vector<float> _context;
 
     std::vector<const char *> output_node_names;
 

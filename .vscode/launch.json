@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "VAD_FILE_COMMAND",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${command:cmake.launchTargetPath}",
+            "args": [
+                "CmakeProject/models/silero_vad_v5.onnx",
+                "v5",
+                "16000",
+                "CmakeProject/test_data/16khz_32bitfloat.wav"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "setupCommands": [
+                {
+                    "text": "-enable-pretty-printing",
+                    "description": "Enable GDB pretty printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}

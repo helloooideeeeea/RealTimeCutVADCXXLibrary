@@ -70,7 +70,7 @@ if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
     set(MACOSX_BUNDLE_ICON_FILE "MyApp.icns")
 
     add_executable(VAD_FILE_COMMAND ${MY_CMAKE_PROJECT_DIR}/main/vad_file.cpp ${HEADER} ${SOURCE_FILES})
-    set_target_properties(VAD_FILE_COMMAND PROPERTIES MACOSX_BUNDLE TRUE)
+    set_target_properties(VAD_FILE_COMMAND PROPERTIES MACOSX_BUNDLE FALSE)
     target_include_directories(VAD_FILE_COMMAND PRIVATE
             ${MY_LIBRARY_SOURCE_DIR}
             ${ONNX_RUNTIME_INCLUDE}
@@ -87,8 +87,8 @@ if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
             ${WEBRTC_AUDIO_PROCESSING_LIBRARY}
     )
     install(TARGETS VAD_FILE_COMMAND
-            BUNDLE DESTINATION VAD_FILE_COMMAND_build
-            RUNTIME DESTINATION VAD_FILE_COMMAND_build
+            BUNDLE DESTINATION install
+            RUNTIME DESTINATION install
     )
 
 endif()

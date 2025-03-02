@@ -22,21 +22,6 @@
 #define K_48_SAMPLE_RATE 48000
 #define K_48_SPLIT_CHUNK_SIZE 480 // 0.01s
 
-// 1 / 16000 * 512 = 0.032s 1VADあたりの秒数
-
-// 音声活性検出の確率の閾値（喋り始め）
-#define SAMPLE_VAD_START_DETECTION_PROBABILITY_THRESHOLD 0.7
-// 音声活性検出の確率の閾値（喋り途中のVAD閾値）
-#define SAMPLE_VAD_END_DETECTION_PROBABILITY_THRESHOLD 0.7
-// 音声開始の判断におけるVAD True判定の割合の閾値
-#define SAMPLE_VOICE_START_VAD_TRUE_RATIO_THRESHOLD 0.8
-// 音声終了の判断におけるVAD False判定の割合の閾値
-#define SAMPLE_VOICE_END_VAD_FALSE_RATIO_THRESHOLD 0.95
-// 音声開始を判断する音声ポイントの数
-#define SAMPLE_VOICE_START_FRAME_COUNT_THRESHOLD 10 // 0.032s * 10 = 0.32s
-// 音声終了を判断する音声ポイントの数
-#define SAMPLE_VOICE_END_FRAME_COUNT_THRESHOLD 57 // 0.032s * 57 = 1.792s
-
 
 enum SAMPLE_RATE {
     K_8 = 0,
