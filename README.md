@@ -86,8 +86,8 @@ export ANDROID_NDK=$ANDROID_HOME/ndk/25.1.8937393
 2. Download and extract the prebuilt Android libraries (`jniLibs.zip`) into the `Project Root` directory:
 
 ```bash
-wget https://github.com/helloooideeeeea/RealTimeCutVADLibraryForXCFramework/releases/download/v1.0.1/jniLibs.zip
-unzip jniLibs.zip -d ./
+wget https://github.com/helloooideeeeea/RealTimeCutVADCXXLibrary/releases/download/v1.0.2/RealTimeCutVADCXXLibrary.jniLibs.zip
+unzip RealTimeCutVADCXXLibrary.jniLibs.zip -d ./
 ```
 
 3. Run the Android build script:
