@@ -6,7 +6,7 @@
 
 ## Features
 
-- **Real-time Voice Activity Detection (VAD)** using Silero models (v4 and v5)
+- **Real-time Voice Activity Detection (VAD)** using Silero models (v4 or v5.. recommend v5)
 - **High-performance inference** with ONNX Runtime (C++)
 - **Advanced audio preprocessing** using WebRTC's APM (noise suppression, gain control, high-pass filtering)
 - **Accurate voice segmentation algorithms** implemented entirely in C++
