@@ -8,6 +8,8 @@
 #include <memory>
 #include "realtime_cut_vad.h"
 
+std::vector<uint8_t> pcm_data;
+
 std::string time_str() {
     auto now = std::chrono::system_clock::now(); // Get current time
     auto now_as_time_t = std::chrono::system_clock::to_time_t(now); // Convert to time_t
@@ -25,9 +27,68 @@ std::string time_str() {
     return oss.str();
 }
 
+std::vector<uint8_t> bytesToWavData(const std::vector<uint8_t>& pcmData, int sampleRate) {
+    std::vector<uint8_t> wavData;
+
+    uint32_t data_size = static_cast<uint32_t>(pcmData.size());
+    uint16_t num_channels = 1;    // mono
+    uint16_t bits_per_sample = 32; // 32-bit float
+    uint32_t total_size = data_size + 44; // 44 bytes for standard WAV header
+    uint32_t chunk_size = total_size - 8;
+    uint32_t byte_rate = sampleRate * num_channels * (bits_per_sample / 8);
+    uint16_t block_align = num_channels * (bits_per_sample / 8);
+
+    wavData.reserve(total_size);
+
+    // Write the "RIFF" header.
+    wavData.insert(wavData.end(), {'R', 'I', 'F', 'F'});
+    wavData.insert(wavData.end(),
+                   reinterpret_cast<const uint8_t*>(&chunk_size),
+                   reinterpret_cast<const uint8_t*>(&chunk_size) + sizeof(chunk_size));
+    wavData.insert(wavData.end(), {'W', 'A', 'V', 'E'});
+
+    // Write the "fmt " subchunk.
+    wavData.insert(wavData.end(), {'f', 'm', 't', ' '});
+    uint32_t fmt_chunk_size = 16;
+    wavData.insert(wavData.end(),
+                   reinterpret_cast<const uint8_t*>(&fmt_chunk_size),
+                   reinterpret_cast<const uint8_t*>(&fmt_chunk_size) + sizeof(fmt_chunk_size));
+    uint16_t audio_format = 3; // 3 indicates IEEE float format.
+    wavData.insert(wavData.end(),
+                   reinterpret_cast<const uint8_t*>(&audio_format),
+                   reinterpret_cast<const uint8_t*>(&audio_format) + sizeof(audio_format));
+    wavData.insert(wavData.end(),
+                   reinterpret_cast<const uint8_t*>(&num_channels),
+                   reinterpret_cast<const uint8_t*>(&num_channels) + sizeof(num_channels));
+    wavData.insert(wavData.end(),
+                   reinterpret_cast<const uint8_t*>(&sampleRate),
+                   reinterpret_cast<const uint8_t*>(&sampleRate) + sizeof(sampleRate));
+    wavData.insert(wavData.end(),
+                   reinterpret_cast<const uint8_t*>(&byte_rate),
+                   reinterpret_cast<const uint8_t*>(&byte_rate) + sizeof(byte_rate));
+    wavData.insert(wavData.end(),
+                   reinterpret_cast<const uint8_t*>(&block_align),
+                   reinterpret_cast<const uint8_t*>(&block_align) + sizeof(block_align));
+    wavData.insert(wavData.end(),
+                   reinterpret_cast<const uint8_t*>(&bits_per_sample),
+                   reinterpret_cast<const uint8_t*>(&bits_per_sample) + sizeof(bits_per_sample));
+
+    // Write the "data" subchunk header.
+    wavData.insert(wavData.end(), {'d', 'a', 't', 'a'});
+    wavData.insert(wavData.end(),
+                   reinterpret_cast<const uint8_t*>(&data_size),
+                   reinterpret_cast<const uint8_t*>(&data_size) + sizeof(data_size));
+
+    // Append the raw PCM data.
+    wavData.insert(wavData.end(), pcmData.begin(), pcmData.end());
+
+    return wavData;
+}
+
 void voiceStartCallback(void* context)
 {
     std::cout << "Voice recording started." << std::endl;
+    pcm_data.clear();
 }
 
 void voiceEndCallback(void* context, const uint8_t* wav_data, size_t wav_size)
@@ -45,6 +106,31 @@ void voiceEndCallback(void* context, const uint8_t* wav_data, size_t wav_size)
     outfile.close();
 
     std::cout << "Partial recorded audio file saved: " << filename << std::endl;
+
+    // pcm_data
+    std::cout << "start pcm_data save" << std::endl;
+    int sampleRate = 16000;
+    std::vector<uint8_t> wavFileData = bytesToWavData(pcm_data, sampleRate);
+    pcm_data.clear();
+
+    std::filesystem::path pcm_filename = std::filesystem::path(PROJECT_SOURCE_DIR) / ("pcm_" + time_str() + ".wav");
+
+    std::ofstream pcm_outfile(pcm_filename, std::ios::binary);
+    if (!pcm_outfile) {
+        std::cerr << "Error: Failed to open file for writing: " << pcm_filename << std::endl;
+        return;
+    }
+    pcm_outfile.write(reinterpret_cast<const char*>(wavFileData.data()), wavFileData.size());
+    pcm_outfile.close();
+
+    std::cout << "pcm file saved: " << pcm_filename << std::endl;
+
+}
+
+void voiceDidContinueCallback(void* context, const uint8_t* pcm_float_data, size_t data_size)
+{
+    std::cout << "Recording ongoing..." << std::endl;
+    pcm_data.insert(pcm_data.end(), pcm_float_data, pcm_float_data + data_size);
 }
 
 int main(int argc, char *argv[]) {
@@ -110,7 +196,8 @@ int main(int argc, char *argv[]) {
     vad->setCallback(
             NULL,
             voiceStartCallback,
-            voiceEndCallback
+            voiceEndCallback,
+            voiceDidContinueCallback
     );
 
     vad->process(input);

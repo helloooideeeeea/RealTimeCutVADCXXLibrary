@@ -19,14 +19,18 @@ typedef void* VADInstanceHandle;
 
 typedef void (*VoiceStartCallback)(void* context);
 typedef void (*VoiceEndCallback)(void* context, const uint8_t* wav_data, size_t wav_size);
+typedef void (*VoiceDidContinueCallback)(void* context, const uint8_t* pcm_float_data, size_t data_size);
 
 // インスタンスの作成と破棄
 VADInstanceHandle create_vad_instance();
 void destroy_vad_instance(VADInstanceHandle instance);
 
 // コールバックの設定
-void set_vad_callback(VADInstanceHandle instance, void* context,
-                      VoiceStartCallback start_cb, VoiceEndCallback end_cb);
+void set_vad_callback(VADInstanceHandle instance,
+                      void* context,
+                      VoiceStartCallback start_cb,
+                      VoiceEndCallback end_cb,
+                      VoiceDidContinueCallback continue_cb);
 
 // パラメータ設定
 void set_vad_sample_rate(VADInstanceHandle instance, int sample_rate);

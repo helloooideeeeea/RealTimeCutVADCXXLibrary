@@ -28,7 +28,6 @@ void RealTimeCutVAD::algorithm(float vadProbability, const std::vector<float_t>&
             if (aImpl->trueProbability(aImpl->pre_vad_list, this->voice_start_vad_true_ratio_threshold)) {
                 aImpl->audio_buffer.assign(aImpl->pre_audio_buffer.begin(), aImpl->pre_audio_buffer.end());
 
-                aImpl->pre_audio_buffer.clear();
                 aImpl->pre_vad_list.clear();
                 aImpl->recording = true;
                 if (voice_start_callback) {
@@ -46,6 +45,23 @@ void RealTimeCutVAD::algorithm(float vadProbability, const std::vector<float_t>&
         bool is_speech = vadProbability > this->vad_end_detection_probability_threshold;
         aImpl->start_vad_list.push_back(is_speech);
         aImpl->audio_buffer.insert(aImpl->audio_buffer.end(), sample.begin(), sample.end());
+
+        std::vector<float_t>attach_chunk;
+        if (!aImpl->pre_audio_buffer.empty()) {
+            attach_chunk = aImpl->pre_audio_buffer;
+            aImpl->pre_audio_buffer.clear();
+        }
+
+        if (voice_did_continue_callback) {
+
+            std::vector<float_t> combined;
+            combined.reserve(attach_chunk.size() + sample.size());
+            combined.insert(combined.end(), attach_chunk.begin(), attach_chunk.end());
+            combined.insert(combined.end(), sample.begin(), sample.end());
+            const uint8_t* pcm_data = reinterpret_cast<const uint8_t*>(combined.data());
+            size_t data_size = combined.size() * sizeof(float_t);
+            voice_did_continue_callback(this->context, pcm_data, data_size);
+        }
 
         if (aImpl->start_vad_list.size() >= this->voice_end_frame_count_threshold) {
             if (aImpl->falseProbability(aImpl->start_vad_list, this->voice_end_vad_false_ratio_threshold)) {

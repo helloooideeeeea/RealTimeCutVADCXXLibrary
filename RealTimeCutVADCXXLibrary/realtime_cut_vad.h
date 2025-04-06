@@ -44,10 +44,12 @@ public:
     void setCallback(
             void* instance,
             VoiceStartCallback voice_start_cb,
-            VoiceEndCallback voice_end_cb) {
+            VoiceEndCallback voice_end_cb,
+            VoiceDidContinueCallback voice_did_continue_cb) {
         context = instance;
         voice_start_callback = voice_start_cb;
         voice_end_callback = voice_end_cb;
+        voice_did_continue_callback = voice_did_continue_cb;
     }
 
     void setSampleRate(SAMPLE_RATE choice_sample_rate);
@@ -81,6 +83,7 @@ private:
     void* context;
     VoiceStartCallback voice_start_callback{};
     VoiceEndCallback voice_end_callback{};
+    VoiceDidContinueCallback voice_did_continue_callback{};
 
 };
 

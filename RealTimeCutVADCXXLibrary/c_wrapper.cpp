@@ -17,9 +17,12 @@ void destroy_vad_instance(VADInstanceHandle instance) {
     delete static_cast<RealTimeCutVAD*>(instance);
 }
 
-void set_vad_callback(VADInstanceHandle instance, void* context,
-                      VoiceStartCallback start_cb, VoiceEndCallback end_cb) {
-    static_cast<RealTimeCutVAD*>(instance)->setCallback(context, start_cb, end_cb);
+void set_vad_callback(VADInstanceHandle instance,
+                      void* context,
+                      VoiceStartCallback start_cb,
+                      VoiceEndCallback end_cb,
+                      VoiceDidContinueCallback continue_cb){
+    static_cast<RealTimeCutVAD*>(instance)->setCallback(context, start_cb, end_cb, continue_cb);
 }
 
 void set_vad_sample_rate(VADInstanceHandle instance, int sample_rate) {
