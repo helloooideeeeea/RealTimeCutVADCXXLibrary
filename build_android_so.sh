@@ -4,6 +4,21 @@ set -e  # エラーが発生したら停止
 
 NOW_DIR=`pwd`
 
+if [ -z "$ANDROID_NDK" ]; then
+    echo "ERROR: ANDROID_NDK が未設定です。例:"
+    echo "  export ANDROID_NDK=\$HOME/Library/Android/sdk/ndk/26.1.10909125"
+    exit 1
+fi
+
+TOOLCHAIN_FILE="$ANDROID_NDK/build/cmake/android.toolchain.cmake"
+if [ ! -f "$TOOLCHAIN_FILE" ]; then
+    echo "ERROR: toolchain file が見つかりません: $TOOLCHAIN_FILE"
+    exit 1
+fi
+
+GENERATOR="Unix Makefiles"
+BUILD_CMD="make"
+
 # ビルド関数
 build_android() {
     ABI=$1
@@ -16,13 +31,14 @@ build_android() {
     mkdir -p build_android && cd build_android
 
     # CMake の設定とビルド
-    cmake -DANDROID_ABI=$ABI \
+    cmake -G "$GENERATOR" \
+          -DANDROID_ABI=$ABI \
           -DANDROID_NDK=$ANDROID_NDK \
-          -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake \
+          -DCMAKE_TOOLCHAIN_FILE=$TOOLCHAIN_FILE \
           -DANDROID_PLATFORM=android-24 \
           -DCMAKE_BUILD_TYPE=Release \
           ../
-    make
+    $BUILD_CMD -j
 
     mkdir -p $OUTPUT_PATH
     # 出力ディレクトリにコピー

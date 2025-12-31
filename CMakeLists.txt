@@ -98,6 +98,9 @@ if(ANDROID)
 
     message(STATUS "Building for Android")
 
+    # 16KB page size デバイス向けに ELF セグメントを 16KB アライン
+    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-z,max-page-size=16384 -Wl,-z,common-page-size=16384")
+
     set(ONNX_RUNTIME_LIBRARY "${PROJECT_SOURCE_DIR}/jniLibs/${ANDROID_ABI}/libonnxruntime.so")
     set(WEBRTC_AUDIO_PROCESSING_LIBRARY "${PROJECT_SOURCE_DIR}/jniLibs/${ANDROID_ABI}/libwebrtc-audio-processing-1.so")
     set(LIBRARY_INCLUDE "${PROJECT_SOURCE_DIR}/jniLibs/Headers")
